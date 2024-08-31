@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid black;
+  padding: 20px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  width: 100px;
+  height: 30px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
