@@ -10,9 +10,9 @@ export const myApi = createApi({
       query: () => `/posts`,
     }),
     getAutorization: builder.query({
-      query: (data) => `/users?username=<${data}>`,
+      query: (data) => `/users?username=${data}`,
     }),
   }),
 });
 
-export const { useGetPostsQuery, useGetAutorizationQuery } = myApi;
+export const { useGetPostsQuery, useGetAutorizationQuery, useLazyGetAutorizationQuery} = myApi;

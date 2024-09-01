@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useGetPostsQuery } from "../../api/MyApi";
 import Header from "../../components/Header/Header";
 import styles from "./Main.module.css";
 
 function Main() {
   interface PostsTypes {
-    userId?: Number;
-    id?: Number;
+    userId?: number;
+    id?: number;
     title: string;
     body: string;
   }
 
   const { data: posts, error, isLoading } = useGetPostsQuery("");
-
-  const [postsDraw, setPostsDraw] = useState<[] | null>(null);
-
-  useEffect(() => {
-    setPostsDraw(posts);
-  }, [posts]);
 
   return (
     <div className={styles.main}>
@@ -27,14 +21,10 @@ function Main() {
         <div className="main__header__text"></div>
       </div>
       <div className={styles.postsContainer}>
-        {error ? <div>error</div> : null}
-        {!isLoading
-          ? postsDraw && postsDraw !== null
-            ? postsDraw.map((elem: PostsTypes) => (
-                <div className={styles.item}>{elem.title}</div>
-              ))
-            : null
-          : null}
+        {error && <div>error</div>}
+        {isLoading && <div>Loading...</div>}
+            {posts && posts.map((elem: PostsTypes) => (
+                <div className={styles.item} key={elem.id}>{elem.title}</div>))}
       </div>
     </div>
   );

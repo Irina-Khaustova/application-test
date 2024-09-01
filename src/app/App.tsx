@@ -6,7 +6,6 @@ import Autorization from "../pages/Autorization/Autorization";
 function App() {
   return (
     <Routes>
-      {" "}
       <Route path="/" element={<Main />} />
       <Route path="/autorization" element={<Autorization />} />
     </Routes>

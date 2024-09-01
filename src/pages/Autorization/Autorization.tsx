@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Autorization.module.css";
 import { useNavigate } from "react-router-dom";
-import { useGetAutorizationQuery } from "../../api/MyApi";
+import { useLazyGetAutorizationQuery } from "../../api/MyApi";
 import { setIsAutorization } from "../../app/store/autorizationSlice";
 import { useDispatch } from "react-redux";
 
@@ -10,6 +10,8 @@ function Autorization() {
   const dispatch = useDispatch();
   const [value, setValue] = useState<string>("");
   const [noValidate, setNoValidate] = useState<boolean>(false);
+  const [ trigger, {data, error} ] = useLazyGetAutorizationQuery();
+
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -18,17 +20,12 @@ function Autorization() {
     }
   };
 
-  const [trigger, setTrigger] = useState<boolean>(false);
-  const { data, error } = useGetAutorizationQuery(value, {
-    skip: !trigger, // Запрос выполняется только если `trigger` установлен в true
-  });
-
   const handlesubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setTrigger(true);
-
     if (value === "") {
       setNoValidate(true);
+    } else {
+      trigger(value);
     }
   };
 
